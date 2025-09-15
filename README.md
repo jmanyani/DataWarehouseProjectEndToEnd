@@ -69,27 +69,6 @@ Enable data-driven decision-making using SQL and dashboards
 
 For more details, see docs/requirements.md
 
-**Repository Layout**
-data-warehouse-project/
-│
-├── datasets/                 # Raw ERP & CRM data
-├── docs/                     # Architecture, ETL flow, and documentation
-│   ├── etl.drawio
-│   ├── data_architecture.drawio
-│   ├── data_catalog.md
-│   ├── data_flow.drawio
-│   ├── data_models.drawio
-│   └── naming-conventions.md
-├── scripts/                  # SQL scripts for ETL and transformations
-│   ├── bronze/
-│   ├── silver/
-│   └── gold/
-├── tests/                    # Data validation and quality checks
-├── README.md
-├── LICENSE
-├── .gitignore
-└── requirements.txt
-
 **License**
 
 This project is licensed under the MIT License. You are free to use, adapt, and share with attribution.
