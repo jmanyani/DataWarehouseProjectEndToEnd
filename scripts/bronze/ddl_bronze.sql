@@ -2,13 +2,14 @@
 ===============================================================================
 DDL Script: Bronze Schema Tables
 ===============================================================================
-Purpose:
-    This script creates all tables within the 'bronze' schema. 
-    If any of these tables already exist, they will be dropped and recreated. 
-    Use this script to redefine or refresh the structure of the 'bronze' tables.
+Description:
+    This script builds all tables under the 'bronze' schema. 
+    If a table already exists, it will be dropped before being recreated. 
+    Use this script when initializing or resetting the Bronze layer structures.
 
-WARNING:
-    Running this script will delete existing tables and their data in the 'bronze' schema.
+⚠️ Caution:
+    Executing this script will remove existing tables in the 'bronze' schema 
+    along with their data.
 ===============================================================================
 */
 
