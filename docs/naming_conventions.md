@@ -27,8 +27,6 @@ Copy code
 - **Example**:  
 crm_customer_info
 
-markdown
-Copy code
 
 ### Silver Layer
 - **Purpose**: Cleaned and standardized versions of Bronze tables.  
@@ -40,16 +38,13 @@ Copy code
 - **Example**:  
 crm_customer_info
 
-markdown
-Copy code
 
 ### Gold Layer
 - **Purpose**: Optimized for BI and reporting.  
 - **Pattern**:  
 <category>_<entity>
 
-markdown
-Copy code
+
 - `<category>`: A prefix describing the table's purpose (`dim`, `fact`, `report`).  
 - `<entity>`: A descriptive name of the business entity.  
 
@@ -58,8 +53,6 @@ dim_customers
 fact_sales
 report_sales_monthly
 
-yaml
-Copy code
 
 ---
 
@@ -84,20 +77,16 @@ Copy code
 - **Example**:  
 customer_key
 
-markdown
-Copy code
 
 ### Technical Columns
 - **Pattern**:  
 dwh_<column_name>
 
-markdown
-Copy code
+
 - **Example**:  
 dwh_load_date
 
-yaml
-Copy code
+
 
 ---
 
@@ -108,13 +97,10 @@ Stored procedures for data loading must follow a simple, descriptive pattern.
 - **Pattern**:  
 load_<layer>
 
-markdown
-Copy code
+
 - **Examples**:  
 load_bronze
 load_silver
 
-yaml
-Copy code
 
 ---
