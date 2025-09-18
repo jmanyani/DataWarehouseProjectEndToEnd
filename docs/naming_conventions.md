@@ -1,97 +1,120 @@
+# Data Warehouse Naming Conventions
 
-Data Warehouse Naming Conventions
 This document outlines the standard naming conventions for schemas, tables, views, columns, and other objects within the data warehouse. Adhering to these guidelines ensures consistency, readability, and maintainability across the entire data platform.
 
-General Principles
-Style: All object names must use snake_case, consisting of lowercase letters and underscores (_) to separate words.
+---
 
-Language: All names must be in English.
+## General Principles
+- **Style**: All object names must use `snake_case`, consisting of lowercase letters and underscores (`_`) to separate words.  
+- **Language**: All names must be in English.  
+- **Reserved Words**: Avoid using SQL reserved words as object names to prevent syntax errors and conflicts.  
 
-Reserved Words: Avoid using SQL reserved words as object names to prevent syntax errors and conflicts.
+---
 
-Table Naming Conventions
-Table naming follows a layered approach, reflecting the data's journey through the medallion architecture.
+## Table Naming Conventions
 
-Bronze Rules
-Tables in the Bronze layer serve as a raw data landing zone. Their names are a combination of the source system and the original table name, ensuring a direct and transparent lineage.
+Table naming follows a layered approach, reflecting the data's journey through the **Medallion Architecture**.
 
-Pattern: <sourcesystem>_<entity>
+### Bronze Layer
+- **Purpose**: Raw data landing zone.  
+- **Pattern**:  
+<sourcesystem>_<entity>
 
-<sourcesystem>: The name of the data source (e.g., crm, erp).
+markdown
+Copy code
+- `<sourcesystem>`: The name of the data source (e.g., `crm`, `erp`).  
+- `<entity>`: The exact original table name from the source system.  
+- **Example**:  
+crm_customer_info
 
-<entity>: The exact original table name from the source system.
+markdown
+Copy code
 
-Example: crm_customer_info (Customer data from the CRM system)
+### Silver Layer
+- **Purpose**: Cleaned and standardized versions of Bronze tables.  
+- **Pattern**:  
+<sourcesystem>_<entity>
 
-Silver Rules
-Tables in the Silver layer are the cleaned and standardized versions of the Bronze tables. The naming convention remains the same as in the Bronze layer to preserve the direct relationship to the source.
+markdown
+Copy code
+- **Example**:  
+crm_customer_info
 
-Pattern: <sourcesystem>_<entity>
+markdown
+Copy code
 
-<sourcesystem>: The name of the data source (e.g., crm, erp).
+### Gold Layer
+- **Purpose**: Optimized for BI and reporting.  
+- **Pattern**:  
+<category>_<entity>
 
-<entity>: The exact original table name from the source system.
+markdown
+Copy code
+- `<category>`: A prefix describing the table's purpose (`dim`, `fact`, `report`).  
+- `<entity>`: A descriptive name of the business entity.  
 
-Example: crm_customer_info (Cleaned customer data from the CRM system)
+- **Examples**:  
+dim_customers
+fact_sales
+report_sales_monthly
 
-Gold Rules
-Tables in the Gold layer are optimized for business intelligence and reporting. Their names are prefixed to indicate their role, making them easy for business users to identify.
+yaml
+Copy code
 
-Pattern: <category>_<entity>
+---
 
-<category>: A prefix describing the table's purpose, such as dim for a dimension table or fact for a fact table.
+## Category Glossary
 
-<entity>: A clear, descriptive name of the business entity (e.g., customers, products, sales).
+| Prefix   | Meaning            | Example(s)               |
+|----------|--------------------|--------------------------|
+| `dim_`   | Dimension table    | `dim_customer`, `dim_product` |
+| `fact_`  | Fact table         | `fact_sales`             |
+| `report_`| Report table       | `report_customers`, `report_sales_monthly` |
 
-Examples:
+---
 
-dim_customers (A dimension table containing customer data)
+## Column Naming Conventions
 
-fact_sales (A fact table containing sales transactions)
+### Surrogate Keys
+- **Pattern**:  
+<table_name>_key
 
-Category Glossary
-Pattern	Meaning	Example(s)
-dim_	Dimension table	dim_customer, dim_product
-fact_	Fact table	fact_sales
-report_	Report table	report_customers, report_sales_monthly
+markdown
+Copy code
+- **Example**:  
+customer_key
 
-Export to Sheets
-Column Naming Conventions
-Column naming ensures that a column's purpose is immediately clear, especially for keys and technical metadata.
+markdown
+Copy code
 
-Surrogate Keys
-Surrogate keys, used as primary keys in dimension tables, must use a consistent suffix.
+### Technical Columns
+- **Pattern**:  
+dwh_<column_name>
 
-Pattern: <table_name>_key
+markdown
+Copy code
+- **Example**:  
+dwh_load_date
 
-<table_name>: The name of the table the key belongs to.
+yaml
+Copy code
 
-_key: A suffix that clearly identifies the column as a surrogate key.
+---
 
-Example: customer_key (The surrogate key for the dim_customers table)
+## Stored Procedure Naming
 
-Technical Columns
-System-generated metadata columns must be prefixed to distinguish them from business data.
-
-Pattern: dwh_<column_name>
-
-dwh_: A prefix exclusively for data warehouse metadata.
-
-<column_name>: A descriptive name indicating the column's purpose.
-
-Example: dwh_load_date (The date a record was loaded into the warehouse)
-
-Stored Procedure Naming
 Stored procedures for data loading must follow a simple, descriptive pattern.
 
-Pattern: load_<layer>
+- **Pattern**:  
+load_<layer>
 
-load_: The prefix indicating the procedure's function is to load data.
+markdown
+Copy code
+- **Examples**:  
+load_bronze
+load_silver
 
-<layer>: The specific data warehouse layer the procedure loads into.
+yaml
+Copy code
 
-Examples:
-
-load_bronze (Loads data into the Bronze layer)
-
-load_silver (Loads data into the Silver layer)
+---
